@@ -4,12 +4,11 @@ from discord.utils import get
 import os
 from dotenv import load_dotenv
 import random
-import config
 
 load_dotenv('.env')
 token = os.getenv('TOKEN')
 
-bot = commands.Bot(command_prefix=config.COMMAND_PREFIX)
+bot = commands.Bot(command_prefix="-")
 
 @bot.event
 async def on_ready():
