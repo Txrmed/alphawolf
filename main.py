@@ -5,10 +5,10 @@ import os
 from dotenv import load_dotenv
 import random
 
-load_dotenv('.env')
+load_dotenv('X:\\Code\\.env')
 token = os.getenv('TOKEN')
 
-bot = commands.Bot(command_prefix="-")
+bot = commands.Bot(command_prefix="sudo")
 
 @bot.event
 async def on_ready():
