@@ -12,19 +12,29 @@ class LevelingSystem(commands.Cog):
     connection = sqlite3.connect('levels.db')
     c = connection.cursor()
 
-    try:
-        c.execute("""CREATE TABLE levels (
-            memberID integer,
-            level integer,
-            experience integer
-            ) """)
-    except:
-        print(" Table is already made")
+    # @commands.Cog.listener()
+    # async def on_message(self, ctx, message, member):
+    #     return
 
-    c.xe
-
-    connection.commit()
-    connection.close()
+    # try:
+    #     c.execute("""CREATE TABLE levels (
+    #         memberID integer,
+    #         level integer,
+    #         experience integer
+    #         ) """)
+    # except:
+    #     print(" Table is already made")
+    #
+    # c.execute("INSERT INTO levels VALUES (69, 4, 73)")
+    # c.execute("INSERT INTO levels VALUES (765, 35, 232)")
+    #
+    # c.execute("SELECT * FROM levels WHERE memberID = 69")
+    #
+    # print(c.fetchall())
+    #
+    #
+    # connection.commit()
+    # connection.close()
 
 
 def setup(bot):
