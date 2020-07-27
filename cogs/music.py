@@ -84,6 +84,7 @@ class Music(commands.Cog):
         except IndexError:
             await ctx.send("AlphaWolf nie znajdzie czegoś co ma za dużo słów więc postaraj się ujać tytuł w kilku słowach")
 
+
         voice = get(self.bot.voice_clients, guild=ctx.guild)
 
         author_vc= ctx.author.voice
@@ -94,6 +95,7 @@ class Music(commands.Cog):
 
         player = await YTDLSource.from_url(url, loop=self.bot.loop, stream=True)
         ctx.voice_client.play(player, after=lambda e: print('Player error: %s' % e) if e else None)
+        await ctx.send("Gramy {} : {} | URL : {}".format(yt_channel, title, url))
 
 
     @commands.command(pass_context=True, name='pause', aliases=['ps'])
