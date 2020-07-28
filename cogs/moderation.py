@@ -12,7 +12,8 @@ class Moderation(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
+
+    @commands.command(help='Kicks people from the server')
     @commands.has_permissions(kick_members=True)
     async def kick(self, ctx, member : discord.Member, *, reason=None):
         await member.kick(reason=reason)
@@ -20,7 +21,7 @@ class Moderation(commands.Cog):
         print(' [INFO] Kicked {} for {}')
 
 
-    @commands.command()
+    @commands.command(help='Bans members from a server')
     @commands.has_permissions(ban_members=True)
     async def ban(self, ctx, member : discord.Member, *, reason=None):
         await member.ban(reason=reason)

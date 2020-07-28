@@ -58,7 +58,7 @@ class Music(commands.Cog):
         self.bot = bot
 
 
-    @commands.command(pass_context=True, name='leave')
+    @commands.command(pass_context=True, name='leave', help='Leaves voice channel')
     async def leave(self, ctx):
         server = ctx.message.guild.voice_client
         channel = ctx.message.author.voice.channel
@@ -97,7 +97,7 @@ class Music(commands.Cog):
         await ctx.send("Gramy {} : {} | URL : {}".format(yt_channel, title, url))
 
 
-    @commands.command(pass_context=True, name='pause', aliases=['ps'])
+    @commands.command(pass_context=True, name='pause', aliases=['ps'], help='Pauses playing music')
     async def pause(self, ctx):
         voice = get(self.bot.voice_clients, guild = ctx.guild)
         if voice and voice.is_playing():
@@ -107,7 +107,7 @@ class Music(commands.Cog):
             print(' [{}] Music not playing'.format(error))
 
 
-    @commands.command(pass_context=True, name='resume', aliases=['r'])
+    @commands.command(pass_context=True, name='resume', aliases=['r'], help='Resumes paused music')
     async def resume(self, ctx):
         voice = get(self.bot.voice_clients, guild = ctx.guild)
         if voice and voice.is_paused():
@@ -115,9 +115,9 @@ class Music(commands.Cog):
             voice.resume()
         else:
             print(' [{}] Music is not paused'.format(error))
-            
 
-    @commands.command(pass_context=True, name='stop', aliases=['s'])
+
+    @commands.command(pass_context=True, name='stop', aliases=['s'], help='')
     async def stop(self, ctx):
         voice = get(self.bot.voice_clients, guild = ctx.guild)
         if voice and voice.is_playing():
