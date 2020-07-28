@@ -3,24 +3,29 @@ from discord.ext import commands
 from discord.utils import get
 from discord.ext.commands import has_permissions, MissingPermissions
 
-import wordfilter
+from threading import Timer
 
 
 class Moderation(commands.Cog):
+    """ Moderation commands for discord """
+
     def __init__(self, bot):
         self.bot = bot
 
-     @commands.command(pass_context=True, name='kick', help='Kicks a certain user')
-     @has_permissions(manage_roles=True, ban_members=True)
-     async def kick(self, ctx, member : discord.Member, *, reason = None):
-         dm = await member.create_dm()
-         await member.kick(reason=reason)
-         await bot.send_message(user, message)
+    @commands.command()
+    @commands.has_permissions(kick_members=True)
+    async def kick(self, ctx, member : discord.Member, *, reason=None):
+        await member.kick(reason=reason)
+        await ctx.send('Wyrzucono {} za {}'.format(member, reason))
+        print(' [INFO] Kicked {} for {}')
 
-    @commands.command(pass_context=True, name='clear', help='Clears a certain amount of messages in a channel')
-    async def clear(self, ctx, amount : int):
-        await ctx.channel.purge(limit = amount + 1)
 
+    @commands.command()
+    @commands.has_permissions(ban_members=True)
+    async def ban(self, ctx, member : discord.Member, *, reason=None):
+        await member.ban(reason=reason)
+        await ctx.send('Banned {} za {}'.format(member, reason))
+        print(' [INFO] Banned {} for {}'.format(member, reason))
 
 
 def setup(bot):

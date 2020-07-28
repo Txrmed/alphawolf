@@ -6,10 +6,9 @@ from youtubesearchpython import SearchVideos
 import os
 import youtube_dl
 
-import _utils
 
-info = _utils.INFO_PREFIX
-error = _utils.ERROR_PREFIX
+info = "INFO"
+error = "EXCEPTION"
 
 ytdl_format_options = {
     'format': 'bestaudio/best',
@@ -65,11 +64,11 @@ class Music(commands.Cog):
         channel = ctx.message.author.voice.channel
         voice = get(self.bot.voice_clients, guild=ctx.guild)
         if voice and voice.is_connected():
-            print(' [{}]Bot left channel : {}'.format(info, channel))
+            print(' [{}] Bot left channel : {}'.format(info, channel))
             # await ctx.send(f'Left {channel}')
             await server.disconnect()
         else:
-            print(' [{}]Bot not in channel'.format(error))
+            print(' [{}] Bot not in channel'.format(error))
 
     @commands.command(pass_context=True, help='Drops some sick beat', aliases=['p'])
     async def play(self, ctx, *,  phrase):
@@ -91,7 +90,7 @@ class Music(commands.Cog):
         channel = ctx.author.voice.channel
         if author_vc:
             await author_vc.channel.connect()
-            print(" [{}]Connected to vc : {}".format(author_vc.channel))
+            print(" [{}] Connected to vc : {}".format(info, author_vc.channel))
 
         player = await YTDLSource.from_url(url, loop=self.bot.loop, stream=True)
         ctx.voice_client.play(player, after=lambda e: print('Player error: %s' % e) if e else None)
@@ -102,10 +101,11 @@ class Music(commands.Cog):
     async def pause(self, ctx):
         voice = get(self.bot.voice_clients, guild = ctx.guild)
         if voice and voice.is_playing():
-            print(' [{}]Paused Music'.format(info))
+            print(' [{}] Paused Music'.format(info))
             voice.pause()
         else:
-            print(' [{}]Music not playing'.format(error))
+            print(' [{}] Music not playing'.format(error))
+
 
     @commands.command(pass_context=True, name='resume', aliases=['r'])
     async def resume(self, ctx):
@@ -114,16 +114,17 @@ class Music(commands.Cog):
             print(' [{}]Music resumed'.format(info))
             voice.resume()
         else:
-            print(' [{}]Music is not paused'.format(error))
+            print(' [{}] Music is not paused'.format(error))
+            
 
     @commands.command(pass_context=True, name='stop', aliases=['s'])
-    async def stop(ctx):
+    async def stop(self, ctx):
         voice = get(self.bot.voice_clients, guild = ctx.guild)
         if voice and voice.is_playing():
-            print(' [{}]Stopped music'.format(info))
+            print(' [{}] Stopped music'.format(info))
             voice.stop()
         else:
-            print(' [{}]Music not playing'.format(error))
+            print(' [{}] Music not playing'.format(error))
 
 
 def setup(bot):
