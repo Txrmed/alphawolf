@@ -14,7 +14,6 @@ class onMessage(commands.Cog):
         if message_content.isupper():
             message_author = message.author
             await message.channel.send('{} , Please refrain from using too many capital letters.'.format(message.author.mention))
-            print(' Warned {} for too many capital letters'.format(message_author))
 
 
 def setup(bot):

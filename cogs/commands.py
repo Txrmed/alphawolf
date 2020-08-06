@@ -4,14 +4,13 @@ from discord.utils import get
 
 import random
 import praw
-import time
 
 memes = []
 
 index = range(1, 101)
 if index[random.randint(0, len(index))] == 69:
     memes = []
-    print(' [INFO] Refreshed memes array')
+    print(' [INFO] Refreshed memes array : {}'.format(str(memes)))
 
 class Commands(commands.Cog):
 
@@ -22,7 +21,7 @@ class Commands(commands.Cog):
         await ctx.send('Heres where the magic happens :' + ' https://github.com/Termed/alphawolf')
 
     @commands.command(pass_context=True, name='meme', help='Throws memes at you')
-    async def meme(self, ctx, init=False):
+    async def meme(self, ctx):
         r = praw.Reddit('bot1')
         meme = None
 
@@ -48,6 +47,23 @@ class Commands(commands.Cog):
         guild = ctx.message.guild
 
         await guild.create_text_channel('Members : {}'.format(members))
+
+    @commands.command(name='change_status', help="Changes discord bot status", pass_context=True)
+    async def change_status(self, ctx, value, *, status=None):
+        if status == None:
+            await ctx.send(" Status cannot be None. Please specify a status")
+
+        if value.lower() == "streaming":
+            await self.bot.change_presence(activity=discord.Activity(type=discord.streaming, name=status))
+        elif value.lower() == "listening":
+            await self.bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=status))
+        elif value.lower() == "playing":
+            await self.bot.change_presence(activity=discord.Activity(type=discord.Game , name=status))
+        elif value.lower() == "watching":
+            await self.bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=status))
+        else:
+            return await ctx.send(" There is no such activity as {}".format(value))
+
 
 
 def setup(bot):

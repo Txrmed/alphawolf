@@ -71,9 +71,12 @@ class Music(commands.Cog):
             print(' [{}] Bot not in channel'.format(error))
 
     @commands.command(pass_context=True, help='Drops some sick beat', aliases=['p'])
-    async def play(self, ctx, *,  phrase):
+    async def play(self, ctx, *,  phrase=None):
         search = SearchVideos(phrase, offset=1, mode="dict", max_results=1)
         searchResults = search.result()
+        if phrase == None:
+            await ctx.send(' Please specify what to play')
+            return
 
         try:
             url = searchResults["search_result"][0]["link"]
@@ -81,7 +84,7 @@ class Music(commands.Cog):
             duration = searchResults["search_result"][0]["duration"]
             yt_channel = searchResults["search_result"][0]["channel"]
         except IndexError:
-            await ctx.send("AlphaWolf nie znajdzie czegoś co ma za dużo słów więc postaraj się ujać tytuł w kilku słowach")
+            await ctx.send(" Please contain the title in a few words")
 
 
         voice = get(self.bot.voice_clients, guild=ctx.guild)
@@ -94,7 +97,8 @@ class Music(commands.Cog):
 
         player = await YTDLSource.from_url(url, loop=self.bot.loop, stream=True)
         ctx.voice_client.play(player, after=lambda e: print('Player error: %s' % e) if e else None)
-        await ctx.send("Gramy {} : {} | URL : {}".format(yt_channel, title, url))
+        await ctx.send("Playing :  {} : {} | URL : {}".format(yt_channel, title, url))
+        print(" [INFO] Now Streaming : {}".format(title))
 
 
     @commands.command(pass_context=True, name='pause', aliases=['ps'], help='Pauses playing music')
@@ -111,13 +115,13 @@ class Music(commands.Cog):
     async def resume(self, ctx):
         voice = get(self.bot.voice_clients, guild = ctx.guild)
         if voice and voice.is_paused():
-            print(' [{}]Music resumed'.format(info))
+            print(' [{}] Music resumed'.format(info))
             voice.resume()
         else:
             print(' [{}] Music is not paused'.format(error))
 
 
-    @commands.command(pass_context=True, name='stop', aliases=['s'], help='')
+    @commands.command(pass_context=True, name='stop', aliases=['s'], help='Stops playing music')
     async def stop(self, ctx):
         voice = get(self.bot.voice_clients, guild = ctx.guild)
         if voice and voice.is_playing():
