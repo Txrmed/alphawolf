@@ -5,6 +5,10 @@ from discord.utils import get
 import random
 import praw
 
+from selenium import webdriver
+import urlilib, json
+import time
+
 memes = []
 
 index = range(1, 101)
@@ -63,7 +67,6 @@ class Commands(commands.Cog):
             await self.bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=status))
         else:
             return await ctx.send(" There is no such activity as {}".format(value))
-
 
 
 def setup(bot):
