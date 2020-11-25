@@ -38,4 +38,4 @@ async def on_ready():
     open("cogs/vdata.alphawolf", "w").close()
 
 
-bot.run("NzE0ODM0MDE3OTk1ODQ5ODIw.Xs0bDg.2WogELa_waOiEqew3p3x4KFaY8k")
+bot.run("NzE0ODM0MDE3OTk1ODQ5ODIw.Xs0bDg.uAAtuHYg2n9Qe46fq1xDq2VG2oc")
