@@ -1,4 +1,3 @@
-Made by Termed#6382
 
 🔨  FUNCTIONS  🔨
 
@@ -7,6 +6,9 @@ Music :
 - Pause - pauses playing Music
 - Resume - Resumes paused Music
 - Stop - Stops playing Music
+
+For Fun:
+- Sends memes
 
 Commands :
 - github - Sends the link to the github repo
