@@ -71,7 +71,7 @@ class Music(commands.Cog):
             print(' [{}] Bot not in channel'.format(error))
 
     @commands.command(pass_context=True, help='Drops some sick beat', aliases=['p'])
-    async def play(self, ctx, *,  phrase=None):
+    async def play(self, ctx, *,  phrase):
         search = SearchVideos(phrase, offset=1, mode="dict", max_results=1)
         searchResults = search.result()
         if phrase == None:
@@ -97,7 +97,10 @@ class Music(commands.Cog):
 
         player = await YTDLSource.from_url(url, loop=self.bot.loop, stream=True)
         ctx.voice_client.play(player, after=lambda e: print('Player error: %s' % e) if e else None)
-        await ctx.send("Playing :  {} : {} | URL : {}".format(yt_channel, title, url))
+        embed = discord.Embed(title="Now Playing", description="Now Playing {} , Time : {}".format(title, duration))
+        await ctx.send(embed=embed)
+
+
         print(" [INFO] Now Streaming : {}".format(title))
 
 

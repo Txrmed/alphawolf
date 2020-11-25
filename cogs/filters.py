@@ -11,7 +11,8 @@ class onMessage(commands.Cog):
     async def on_message(self, message):
         message_content = message.content
         if message_content.isupper():
-            await message.channel.send('{} , Please refrain from using too many capital letters.'.format(message.author.mention))
+            embed = discord.Embed(title="Warning", description="{}, Please refrain from using too many capital letters".format(message.author.mention))
+            await message.channel.send(embed=embed)
 
 
 def setup(bot):

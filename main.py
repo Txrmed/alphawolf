@@ -6,12 +6,13 @@ from dotenv import load_dotenv
 import os
 import os.path
 
-load_dotenv()
-token = os.getenv("TOKEN")  
+
+token = os.getenv("TOKEN")
 prefix = os.getenv("PREFIX")
 
-bot = commands.Bot(command_prefix=prefix)
+bot = commands.Bot(command_prefix=".")
 
+bot.remove_command('help')
 
 @bot.event
 async def on_ready():
@@ -34,9 +35,7 @@ async def on_ready():
             bot.load_extension(f'cogs.{file[:-3]}')
             print(' [INFO] Loaded {} : {}/{}'.format(file, loaded, num))
 
-    if os.isfile("cogs/data.dat"):
-        pass
-    else:
-        os.mkdir("cogs/data.dat")
+    open("cogs/vdata.alphawolf", "w").close()
 
-bot.run(token)
+
+bot.run("NzE0ODM0MDE3OTk1ODQ5ODIw.Xs0bDg.2WogELa_waOiEqew3p3x4KFaY8k")

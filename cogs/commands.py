@@ -5,8 +5,6 @@ from discord.utils import get
 import random
 import praw
 
-from selenium import webdriver
-import urlilib, json
 import time
 
 memes = []
@@ -67,6 +65,15 @@ class Commands(commands.Cog):
             await self.bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=status))
         else:
             return await ctx.send(" There is no such activity as {}".format(value))
+
+    @commands.command(name="clear", help="Clears x amount of messages", pass_context=True)
+    async def clear(self, ctx, amount: int):
+
+        if amount > 100:
+            await ctx.send("Cannot delete over 100 messages.")
+        
+        await ctx.channel.purge(limit=amount)
+        print(" [INFO] Deleted {} of messages in channel: {}".format(amount, ctx.channel))
 
 
 def setup(bot):
